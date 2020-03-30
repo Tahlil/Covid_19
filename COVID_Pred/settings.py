@@ -13,9 +13,9 @@ from tensorflow.keras.models import load_model
 
 import os
 
-modelFile = 'C:/Users/Du/Downloads/server/COVID_XRAY_nor.h5'
-model = load_model(modelFile)
-MODEL = model
+# modelFile = 'C:/Users/Du/Downloads/server/COVID_XRAY_nor.h5'
+# model = load_model(modelFile)
+# MODEL = model
 TESTED_LOC = "C:/Users/Du/Downloads/server/submitted_image"
 SUBMIT_LOC = "C:/Users/Du/Downloads/server/tested_image"
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

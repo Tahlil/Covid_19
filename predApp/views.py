@@ -61,30 +61,30 @@ class FileUploadView(APIView):
         has_corona = False
         # temp = file_serializer.save()
         # print(temp)
-        print(os.getcwd())
-        gender = request.data['gender']
-        age = request.data['age']
-        print(gender)
-        print(age)
-        img = load_image(request.data['myFile'])
-        gray_scaled_img = tf.image.rgb_to_grayscale(img)
-        data_to_3 = np.repeat(gray_scaled_img, 3, -1)
-        prob_threshhold = 0.6
-        # data = { 'hasCorona': has_corona}
-        # modelFile = './predApp/model/COVID_XRAY_nor.h5'
-        # model = load_model(modelFile)
-        val = settings.MODEL.predict(data_to_3)
-        print("Probabilty of Corona: ")
-        print(val[0][0])
-        print("Probabilty of not having Corona: ")
-        print(val[0][1])
-        positive_probabilty = "{:.2f}".format(round(val[0][0]*100.0, 2))
-        if prob_threshhold < val[0][0]:
-            has_corona = True
-        data = {
-            'hasCorona': has_corona,
-            'positiveProbabilty': positive_probabilty 
-        }
+        # print(os.getcwd())
+       
+        # gender = request.data['gender']
+        # age = request.data['age']
+        # print(gender)
+        # print(age)
+        # img = load_image(request.data['myFile'])
+        # gray_scaled_img = tf.image.rgb_to_grayscale(img)
+        # data_to_3 = np.repeat(gray_scaled_img, 3, -1)
+        # prob_threshhold = 0.6
+        data = { 'hasCorona': has_corona, 'positiveProbabilty': '____'}
+      
+        # val = settings.MODEL.predict(data_to_3)
+        # print("Probabilty of Corona: ")
+        # print(val[0][0])
+        # print("Probabilty of not having Corona: ")
+        # print(val[0][1])
+        # positive_probabilty = "{:.2f}".format(round(val[0][0]*100.0, 2))
+        # if prob_threshhold < val[0][0]:
+        #     has_corona = True
+        # data = {
+        #     'hasCorona': has_corona,
+        #     'positiveProbabilty': positive_probabilty 
+        # }
         return JsonResponse(data)
 
 class FileSubmitView(APIView):
