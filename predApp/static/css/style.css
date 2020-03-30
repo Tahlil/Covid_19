@@ -973,6 +973,9 @@ p.required:before {
         position: relative;
         overflow-x: hidden;
     }
+    header p span{
+        font-size: 25px;
+    }
     .page-footer{
         top: 110%
     }
