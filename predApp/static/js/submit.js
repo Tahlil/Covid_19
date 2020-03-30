@@ -1,15 +1,18 @@
 var gender = "notSelected";
 var age = "notSelected";
+var hasCorona = true;
+var history = ""
 var site = 'http://13.76.6.127';
 // const $ = document.querySelector.bind(document);
 const imageHolder = $('#blah');
 // const modalBody = $('#modal-body');
 let formData, hasFile = false;
-hasCorona = true;
+
 function resetVals() {
     console.log("reseting...");
-
+    $('textarea').val('');
     document.getElementById(gender).checked = false;
+    document.getElementById("check").checked = true;
     jQuery("input[type='number']").val('');
     gender = "notSelected";
     age = "notSelected";
@@ -35,6 +38,14 @@ jQuery('input[type="radio"]').on('change', function() {
 jQuery('input[type="number"]').on('change', function() {
     age = this.value;
 });
+jQuery('input[type="checkbox"]').on('change', function() {
+    hasCorona = this.value;
+});
+
+jQuery('textarea').on('change', function() {
+    age = this.value;
+});
+
 
 
 function readURL(input) {
@@ -47,10 +58,6 @@ function readURL(input) {
                 .width(150)
                 .height(200);
 
-                formData = new FormData()
-                formData.append('myFile', e.target.result);
-                formData.append('age', age);
-                formData.append('gender', gender);
                 showImage();
                 hasFile = true;
         };
@@ -68,7 +75,18 @@ $('.ribbons').on('click', (e) => {
         e.preventDefault();
         if (hasFile && gender != 'notSelected' && age != 'notSelected' && !isInvalidAge(age)) {
             hideImage();
+            
+            formData = new FormData()
+            formData.append('myFile', e.target.result);
+            formData.append('age', age);
+            formData.append('gender', gender);
+            formData.append('hasCorona', hasCorona);
+            formData.append('history', history);
             hasFile = false;
+            console.log("Form Data");
+            
+            console.log(formData);
+            
             resetVals();
             // document.getElementById("overlay").style.display = "block";
             // $(".lds-ellipsis").style.display = "inline-block"

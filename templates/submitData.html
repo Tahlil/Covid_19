@@ -34,7 +34,7 @@
         <form class="center">
             <div class="row">
                 <label class="required">Age</label>
-                <input class="mx-auto" id="age" type="number" min="0" max="150" placeholder="Enter your age"
+                <input class="mx-auto" id="age" type="number" min="0" max="150" placeholder="Enter patient's age"
                     required="required" />
             </div>
             <div class="row select-gender">
@@ -57,12 +57,16 @@
                 <label class="required">Does the patient has Covid 19?</label>
                 <div class="toggle-button-cover">
                       <div class="button r" id="button-3">
-                        <input type="checkbox" class="checkbox">
+                        <input id="check" type="checkbox" class="checkbox">
                         <div class="knobs"></div>
                         <div class="layer"></div>
                       </div>
                    
                   </div>
+            </div>
+            <div class="row center">
+                <label for="description">Short history (Optional)</label>
+                <textarea name="description" id="" cols="31" rows="7"></textarea>
             </div>
             <div class="row center">
                 <label class="required">X-ray Image File: </label>
