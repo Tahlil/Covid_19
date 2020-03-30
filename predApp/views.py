@@ -100,7 +100,9 @@ class FileSubmitView(APIView):
         age = request.data['age']
         hasCorona = request.data['hasCorona']
         history = request.data['history']
-        folder = ''
+        emailOrPhone = request.data['emailOrPhone']
+        relation = request.data['relation']
+        folder_name = str(settings.ID_SUBMIT) + "_" + str(emailOrPhone) + "___" + str(relation) 
         file_name = str(settings.ID_SUBMIT) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
         settings.ID_SUBMIT += 1
         if hasCorona:
@@ -110,10 +112,12 @@ class FileSubmitView(APIView):
         data = { 'success': True}
         img_path = request.data['myFile']
         img = imread(img_path, as_gray = True) 
-        imsave(folder+file_name, img)
+        path = folder+'/'+folder_name
+        os.mkdir(path) 
+        imsave(path+'/'+file_name, img)
         if history != '':
             name_of_the_file, _ = os.path.splitext(str(request.data['myFile'])) 
-            with open(folder+name_of_the_file + ".txt", "w") as text_file:
+            with open(path+'/'+name_of_the_file + ".txt", "w") as text_file:
                 text_file.write(str(history))
         return JsonResponse(data)
 

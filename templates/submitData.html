@@ -81,11 +81,11 @@
                 <p class="patient"> Submitter's info</p>
                 <div class="row center">
                     <label for="email">Email / Phone number:</label>
-                    <input type="email" name="email" id="email">
+                    <input type="email" name="email" id="emailOrPhone">
                 </div>
                 <div class="row center">
                     <label for="relation" class="required">Relation with patient ( doctor/ relative/ friend... )</label>
-                    <input type="nam" name="relation" id="relation">
+                    <input onkeypress="return /[a-z]/i.test(event.key)" name="relation" id="relation">
                 </div>
             </div>
             <div class="row submit">
