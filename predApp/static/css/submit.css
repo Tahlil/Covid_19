@@ -457,8 +457,8 @@
                     position: absolute;
                     top: 1px;
                     left: -18px;
-                    width: 10px;
-                    height: 10px;
+                    width: 15px;
+                    height: 15px;
                     background: #a0b3b0;
                     border: 1px solid #a0b3b0;
                     border-radius: 50%;
@@ -479,6 +479,9 @@
                 input[type='radio']:hover+label:before {
                     border-color: #5375aa;
                     background: #1ab188;
+                    cursor: pointer;
+                    -webkit-box-shadow: 0px 0px 3px 3px rgba(155, 155, 255, 0.2);
+                      box-shadow: 0px 0px 3px 3px rgba(155, 155, 255, 0.2);
                     -webkit-transition: all 0.2s ease-in-out;
                     transition: all 0.2s ease-in-out;
                 }
@@ -514,7 +517,7 @@
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 0;
                     border-color: transparent;
-                    width: 5px;
+                    width: 7px;
                     z-index: 600;
                 }
                 
