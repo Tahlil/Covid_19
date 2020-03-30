@@ -69,10 +69,10 @@ class FileUploadView(APIView):
         file_name = str(settings.ID_TEST) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
         # print(gender)
         # print(age)
-        img_path = request.data['myFile']
-        im1 = Image.open(img_path)
-        im1.save(settings.TESTED_LOC + file_name)
-        settings.ID_TEST += 1
+        # img_path = request.data['myFile']
+        # im1 = Image.open(img_path)
+        # im1.save(settings.TESTED_LOC + file_name)
+        # settings.ID_TEST += 1
         # img = load_image(img_path)
         # gray_scaled_img = tf.image.rgb_to_grayscale(img)
         # data_to_3 = np.repeat(gray_scaled_img, 3, -1)
@@ -97,20 +97,10 @@ class FileSubmitView(APIView):
     parser_class = (FileUploadParser,)
 
     def post(self, request, *args, **kwargs):
-        print('Post request...')
-        
-        # file_serializer = FileSerializer(data=request.data)
-        print(request.data['myFile'])
-        has_corona = False
-        # temp = file_serializer.save()
-        # print(temp)
-        print(os.getcwd())
+        print('Submit data...')
         gender = request.data['gender']
         age = request.data['age']
-        print(gender)
-        print(age)
-        img = load_image(request.data['myFile'])
-        gray_scaled_img = tf.image.rgb_to_grayscale(img)
+      
         data = { 'success': True}
         
         return JsonResponse(data)

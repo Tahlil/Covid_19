@@ -183,16 +183,23 @@
                     align-items: center;
                 }
                 
-                .Success {
+                .Fail {
                     background: indianred;
                     color: darkred;
                     font-weight: bolder;
                 }
                 
-                .Fail {
+                .Success {
                     background: rgba(47, 124, 70, 0.8);
                     color: white;
                     font-weight: bolder;
+                }
+                .redBorder {
+                    border: 5px solid darkred;
+                }
+                
+                .greenBorder {
+                    border: 5px solid darkgreen;
                 }
                 
                 .submitData {

@@ -5,5 +5,5 @@ from .views import *
 
 urlpatterns = [
     path('', FileUploadView.as_view()),
-    path('', FileSubmitView.as_view()),
+    path('data', FileSubmitView.as_view()),
 ]
