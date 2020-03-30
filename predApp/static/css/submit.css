@@ -638,3 +638,20 @@
       color: black;
       outline-width: 0;
   }
+  
+@media screen and (max-width: 441px) {
+    html, body {
+        position: relative;
+        overflow-x: hidden;
+      
+    }
+    .page-footer {
+        top: 110%
+    }
+
+    .go-back{
+        top: 0;
+        left: 30%;
+    }
+    
+}
