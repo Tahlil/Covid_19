@@ -20,6 +20,7 @@ from tensorflow.keras.layers import LSTM, Dropout, Dense
 from tensorflow.keras import optimizers, Sequential
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.preprocessing import MinMaxScaler
+from skimage.io import imsave, imread
 import os
 from shutil import copyfile
 from tensorflow.keras.applications import InceptionResNetV2
@@ -42,21 +43,17 @@ def load_image(img_path, show=False):
     img_tensor = image.img_to_array(img)
     img_tensor = np.expand_dims(img_tensor, axis=0)
     img_tensor /= 255.
-
     if show:
         plt.imshow(img_tensor[0])
         plt.axis('off')
         plt.show()
-
     return img_tensor
 
 
 class FileUploadView(APIView):
     parser_class = (FileUploadParser,)
-
     def post(self, request, *args, **kwargs):
         print('Post request...')
-        
         # file_serializer = FileSerializer(data=request.data)
         print(request.data['myFile'])
         has_corona = False
@@ -64,52 +61,45 @@ class FileUploadView(APIView):
         # print(temp)
         # print(os.getcwd())
         # print(request.data['myFile'])
-        
         gender = request.data['gender']
         age = request.data['age']
         file_name = str(settings.ID_TEST) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
         # print(gender)
         # print(age)
-        img_path = request.data['myFile']
-        
+        img_path = request.data['myFile']    
         settings.ID_TEST += 1
-        img = load_image(img_path)
-        gray_scaled_img = tf.image.rgb_to_grayscale(img)
-        data_to_3 = np.repeat(gray_scaled_img, 3, -1)
+        img = imread(img_path, as_gray = True) 
+        imsave("C:/Users/Du/Downloads/server/"+file_name, img)
+        im1 = load_image("C:/Users/Du/Downloads/server/"+file_name)
         prob_threshhold = 0.6
         # data = { 'hasCorona': has_corona, 'positiveProbabilty': 'test'}
-      
-        val = settings.MODEL.predict(data_to_3)
+        val = settings.MODEL.predict(im1)
         # print("Probabilty of Corona: ")
         # print(val[0][0])
         # print("Probabilty of not having Corona: ")
         # print(val[0][1])
-        positive_probabilty = "{:.2f}".format(round(val[0][0]*100.0, 2))
+        val[0][0] = min(val[0][0], 0.95)
         if prob_threshhold < val[0][0]:
             file_name = settings.TESTED_LOC_POSITIVE + file_name
             has_corona = True
         else:
             file_name = settings.TESTED_LOC_NEGATIVE + file_name
-        im1 = Image.open(img_path)
-        im1.save(file_name)
+        imsave(file_name, img)
+        positive_probabilty = "{:.2f}".format(round(val[0][0]*100.0, 2))
         data = {
             'hasCorona': has_corona,
             'positiveProbabilty': positive_probabilty 
         }
-        
         return JsonResponse(data)
 
 class FileSubmitView(APIView):
     parser_class = (FileUploadParser,)
-
     def post(self, request, *args, **kwargs):
         print('Submit data...')
-       
         gender = request.data['gender']
         age = request.data['age']
         hasCorona = request.data['hasCorona']
         history = request.data['history']
-       
         folder = ''
         file_name = str(settings.ID_SUBMIT) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
         settings.ID_SUBMIT += 1
@@ -119,9 +109,8 @@ class FileSubmitView(APIView):
             folder = settings.SUBMIT_LOC_NEGATIVEe
         data = { 'success': True}
         img_path = request.data['myFile']
-        im1 = Image.open(img_path)
-        im1.save(folder+file_name)
-       
+        img = imread(img_path, as_gray = True) 
+        imsave(folder+file_name, img)
         if history != '':
             name_of_the_file, _ = os.path.splitext(str(request.data['myFile'])) 
             with open(folder+name_of_the_file + ".txt", "w") as text_file:
