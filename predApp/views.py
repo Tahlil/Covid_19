@@ -68,10 +68,12 @@ class FileUploadView(APIView):
         print(age)
         img = load_image(request.data['myFile'])
         gray_scaled_img = tf.image.rgb_to_grayscale(img)
+        data_to_3 = np.repeat(gray_scaled_img, 3, -1)
+
         # data = { 'hasCorona': has_corona}
         # modelFile = './predApp/model/COVID_XRAY_nor.h5'
         # model = load_model(modelFile)
-        val = settings.MODEL.predict(gray_scaled_img)
+        val = settings.MODEL.predict(data_to_3)
         print(val[0][0])
         print(val[0][1])
         if val[0][0] > val[0][1]:

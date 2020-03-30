@@ -13,7 +13,7 @@ from tensorflow.keras.models import load_model
 
 import os
 
-modelFile = './predApp/model/COVID_XRAY_nor.h5'
+modelFile = 'C:/Users/Du/Downloads/server/COVID_XRAY_nor.h5'
 model = load_model(modelFile)
 MODEL = model
 

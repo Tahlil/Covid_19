@@ -86,6 +86,11 @@ App.init = function () {
 
   }
 
+
+
+
+
+  
   // trigger input
   $("#triggerFile").addEventListener("click", evt => {
     evt.preventDefault();
