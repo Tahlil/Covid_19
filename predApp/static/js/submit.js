@@ -1,7 +1,7 @@
 var gender = "notSelected";
 var age = "notSelected";
 var hasCorona = true;
-var history = ""
+var patientHistory = ""
 var site = 'http://13.76.6.127';
 // const $ = document.querySelector.bind(document);
 const imageHolder = $('#blah');
@@ -43,9 +43,11 @@ jQuery('input[type="checkbox"]').on('change', function() {
 });
 
 jQuery('textarea').on('change', function() {
-    age = this.value;
+    console.log(this.value);
+    console.log(typeof this.value);
+    
+    patientHistory = this.value;
 });
-
 
 
 function readURL(input) {
@@ -57,10 +59,12 @@ function readURL(input) {
                 .attr('src', e.target.result)
                 .width(150)
                 .height(200);
-
+                
                 showImage();
                 hasFile = true;
         };
+        formData = new FormData()
+        formData.append('myFile', input.files[0]);
         reader.readAsDataURL(input.files[0]);     
     }
 }
@@ -73,15 +77,20 @@ document.getElementById("fileChoose").addEventListener("click", () => {
 $('.ribbons').on('click', (e) => {
         console.log("Ribbon clicked");
         e.preventDefault();
+        console.log(age, gender, hasFile);
+        
+        
         if (hasFile && gender != 'notSelected' && age != 'notSelected' && !isInvalidAge(age)) {
-            hideImage();
+            hideImage(); 
+            console.log("History: ");
+            console.log(typeof patientHistory);
             
-            formData = new FormData()
-            formData.append('myFile', e.target.result);
+            console.log(patientHistory);
+                   
             formData.append('age', age);
             formData.append('gender', gender);
             formData.append('hasCorona', hasCorona);
-            formData.append('history', history);
+            formData.append('history', patientHistory);
             hasFile = false;
             console.log("Form Data");
             

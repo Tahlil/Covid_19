@@ -15,11 +15,13 @@ import os
 
 # modelFile = 'C:/Users/Du/Downloads/server/COVID_XRAY_nor.h5'
 # model = load_model(modelFile)
-# MODEL = model
+# MODEL = modelHasNotCovid19
 ID_TEST = 0
 ID_SUBMIT = 0
-SUBMIT_LOC= "C:/Users/Du/Downloads/server/submitted_image/"
-TESTED_LOC = "C:/Users/Du/Downloads/server/tested_image/"
+SUBMIT_LOC_POSITIVE = "C:/Users/Du/Downloads/server/submitted_image/HasCovid19/"
+SUBMIT_LOC_NEGATIVE = "C:/Users/Du/Downloads/server/submitted_image/HasNotCovid19/"
+TESTED_LOC_POSITIVE = "C:/Users/Du/Downloads/server/tested_image/HasCovid19/"
+TESTED_LOC_NEGATIVE = "C:/Users/Du/Downloads/server/tested_image/HasNotCovid19/"
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print(BASE_DIR)
