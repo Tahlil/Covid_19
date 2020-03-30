@@ -39,8 +39,12 @@ App.init = function () {
 
   function handleFileSelect(evt) {
     console.log("Handle File...");
+    console.log(evt.target.files[0]);
     
-    const files = evt.target.files; // FileList object
+    if (evt.target.files[0]) {
+      const files = evt.target.files; // FileList object
+    console.log(files);
+    
     formData = new FormData()
     formData.append('myFile', evt.target.files[0]);
     formData.append('age', age);
@@ -82,15 +86,15 @@ App.init = function () {
         $(`.file--${file}`).querySelector(".progress").classList.remove("active");
         $(`.file--${file}`).querySelector(".done").classList.add("anim");
       }, load);
-    });
-
+    });  
+    } 
   }
 
 
 
 
 
-  
+
   // trigger input
   $("#triggerFile").addEventListener("click", evt => {
     evt.preventDefault();
