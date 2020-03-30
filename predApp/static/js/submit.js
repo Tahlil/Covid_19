@@ -5,7 +5,7 @@ var site = 'http://13.76.6.127';
 const imageHolder = $('#blah');
 // const modalBody = $('#modal-body');
 let formData, hasFile = false;
-
+hasCorona = true;
 function resetVals() {
     console.log("reseting...");
 
