@@ -9,12 +9,17 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+from tensorflow.keras.models import load_model
 
 import os
 
+modelFile = './predApp/model/COVID_XRAY_nor.h5'
+model = load_model(modelFile)
+MODEL = model
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+print(BASE_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -24,7 +29,7 @@ SECRET_KEY = 'x98qc_fia65i!98k52fyge+c^*^4#2@4amt#ndmmbl3&tkz$3j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 

@@ -1,126 +1,171 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Detect Corona</title>
-      <link rel='icon' href='{%  static "coronavirus-16.png" %}' type='image/x-icon' >
+    <link rel='icon' href='{%  static "coronavirus-16.png" %}' type='image/x-icon'>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-      <script
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-    ></script>
+    ></script> -->
     <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="{%  static "./css/style.css" %}"/>
-  </head>
-  <body>
-    <div class="lds-ellipsis fixed" style="display: none; color: white;"><span style=" font-size: 19px;">Testing </span> <div></div><div></div><div></div><div></div><p style="font-size: xx-small;"><br><br><br>This may take a few minutes.</p></div>
-    
-  <button id="mBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display: none;">
+    <link rel="stylesheet" type="text/css" href="{%  static './css/style.css' %}" />
+</head>
+
+<body>
+    <input type="file" accept="image/*" style="display: none;" />
+    <div class="lds-ellipsis fixed" style="display: none; color: white;"><span style=" font-size: 19px;">Testing </span>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <p style="font-size: xx-small;"><br><br><br>This may take a few minutes.</p>
+    </div>
+    <button id="err-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#err-alrt" style="display: none;"></button>
+    <button id="mBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display: none;">
     </button>
     <div id="overlay"></div>
     <div class="upload">
-      
-      <div class="upload-files">
-        <header>
-          <p>
-            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-            <span class="up">Corona </span>
-            <span class="load"> Detection</span>
-          </p>
-        </header>
-        <div class="body" id="drop">
-          <i class="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
-          <p class="pointer-none">
-            <a href="" id="triggerFile">Click here</a> to begin the upload
-          </p>
-          <input type="file" accept="image/*"  />
+
+        <div class="upload-files">
+            <header>
+                <p>
+                    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                    <span class="up">Corona </span>
+                    <span class="load"> Detection</span>
+                </p>
+            </header>
+            <div class="body" id="drop">
+                <form>
+                    <div class="row">
+                        <label class="required">Age</label>
+                        <input class="mx-auto" id="age" type="number" min="0" max="150" placeholder="Enter your age" required="required" />
+                    </div>
+                    <div class="row select-gender">
+                        <label class="required">Gender</label>
+                        <div class="contain mx-auto">
+                            <input id="Male" type="radio" name="gender" value="Male" />
+                            <label for="Male">Male</label>
+                        </div>
+                        <div class="contain mx-auto">
+                            <input id="Female" type="radio" name="gender" value="Female" />
+                            <label for="Female">Female</label>
+                        </div>
+                        <div class="contain mx-auto">
+                            <input id="Other" type="radio" name="gender" value="Other" />
+                            <label for="Other">Other</label>
+                        </div>
+                        <!-- <div class="contain">
+                <input id="pass" type="radio" name="gender" value="pass"/>
+                <label for="pass">Prefer not to say</label>
+              </div> -->
+                    </div>
+
+                    <!-- <div class="row submit">
+              <button class="ribbons">create account</button>
+            </div> -->
+                </form>
+                <p class="required"> First fill in the info then...</p>
+                <i class="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+                <p class="pointer-none">
+                    <a href="" id="triggerFile">Click here</a>&nbsp; to begin the upload of the X-Ray image
+                </p>
+                <!-- <input type="file" accept="image/*"  /> -->
+            </div>
+            <footer class="center">
+
+                <div class="divider">
+                    <span><AR>Uploaded file:</AR></span>
+                    <img class="mx-auto d-block" id="blah" src="#" alt="x-ray image" width="220px" height="180px" />
+                </div>
+                <div class="list-files">
+                    <!--   template   -->
+                </div>
+                <br>
+
+                <button id="test" class="importar"><strong style="font-size: large;">Test for Covid 19</strong></button><br>
+                <button id="difFile" class="importar">Upload differeent file</button><br>
+                <button id="difTest" class="importar">Do another test</button><br>
+                <button id="goBack" class="importar"><i class="fa fa-arrow-left"></i> Go back</button>
+
+
+            </footer>
+
         </div>
-        <footer>
-
-          <div class="divider">
-            <span><AR>Uploaded file:</AR></span>
-            <img class="mx-auto d-block" id="blah" src="#" alt="x-ray image" width="220px" height="230px" />
-          </div>
-          <div class="list-files">
-            <!--   template   -->
-          </div>
-          <br>
-          <button id="getNewFile" class="importar">Upload a different file</button>
-        </footer>
-        
-      </div>
-      </div>
-      <div id="res" class="alert" style="display: none;" role="alert">
 
     </div>
-  
-<!-- The Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Test result: </h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div id="modal-body">
-
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+    <div class="page-footer font-small blue text-center p-1">
+        <div class="center">
+            <span id="home" class="mr-3">Home</span>
+            <span id="contact" class="mr-3"><a href="/contact">Contact</a></span>
+            <span id="submitData"><a href="/submitData">Submit Data</a></span>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">©
+            <script>
+                document.write(new Date().getFullYear())
+            </script> Copyright:
+            <p>Disclaimer: the prepared model is based on a small biased Data Set. This system is in no way can be used for reliable prediction.</p>
+        </div>
+        <!-- Copyright -->
 
     </div>
-  </div>
-</div>
-<!-- Footer -->
 
-<!-- Footer -->
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header no-border">
+                    <h4 class="modal-title  no-border">Test result: </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div id="modal-body" class="ml-3 no-border">
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer no-border">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="modal fade" id="err-alrt">
+        <div class="modal-dialog">
+            <div class="modal-content bg-danger pb-3 px-2">
+                <div class="modal-header no-border">
+                    <button id="exit-btn" type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <strong>Please fill-in all the field with valid info.</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-{#      <script type="text/javascript" charset="utf-8" src="{%  static "js/main.js" %}"></script>#}
-      <script type="text/javascript" charset="utf-8" src="{%  static "js/ui.js" %}"></script>
-      <footer class="page-footer font-small blue">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© <script>document.write(new Date().getFullYear())</script> Copyright:
-          <p>Disclaimer: the prepared model is based on people around the might be biased for patient at certain part of the world</p>
-        </div>
-        <!-- Copyright -->
-      
-      </footer>
-      
-  </body>
-  
+    <script type="text/javascript" charset="utf-8" src="{%  static 'js/ui.js' %}"></script>
+
+
+</body>
+
 </html>
-
-
-
-
