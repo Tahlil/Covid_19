@@ -13,9 +13,9 @@ from tensorflow.keras.models import load_model
 
 import os
 
-# modelFile = 'C:/Users/Du/Downloads/server/COVID_XRAY_nor.h5'
-# model = load_model(modelFile)
-# MODEL = model
+modelFile = 'C:/Users/Du/Downloads/server/COVID_XRAY_nor.h5'
+model = load_model(modelFile)
+MODEL = model
 ID_TEST = 0
 ID_SUBMIT = 0
 SUBMIT_LOC_POSITIVE = "C:/Users/Du/Downloads/server/submitted_image/HasCovid19/"
