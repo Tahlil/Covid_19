@@ -173,7 +173,6 @@ App.init = function () {
     document.getElementById("overlay").style.display = "block";
     $(".lds-ellipsis").style.display = "inline-block"
     console.log(formData);
-    
     fetch(site + '/upload/', {
       method: 'POST',
       body: formData
@@ -189,13 +188,13 @@ App.init = function () {
         console.log("Overlay gone...");
         document.getElementById("overlay").style.display = "none";
         // document.getElementById("getNewFile").disabled = false;
-        console.log(data);
-        console.log(data.hasCorona);
-        console.log(typeof data.hasCorona);
+        // console.log(data);
+        // console.log(data.hasCorona);
+        // console.log(typeof data.hasCorona);
 
         let addedClass = data.hasCorona ? "Positive" : "Negative", removedClass = data.hasCorona ? "Negative" : "Positive";
-        let result = data.hasCorona ? "  Positive ( + ) " : "  Negative ( - )";
-        modalBody.innerHTML = " " + result;
+        // let result = data.hasCorona ? "  Positive ( + ) " : "  Negative ( - )";
+        modalBody.innerHTML = data.positiveProbabilty + " %";
         //document.getElementById('res').innerHTML = " Test " + result;
         $(".modal-content").classList.add(data.hasCorona ? "redBorder" : "greenBorder");
         $(".modal-content").classList.add(addedClass);
