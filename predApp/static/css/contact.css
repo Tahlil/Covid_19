@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
     min-height: 100%;
     margin: 0;
     padding: 0;
@@ -13,7 +12,8 @@ body {
     background: -webkit-gradient(linear, left bottom, left top, from(rgba(70, 95, 122, 0.52)), to(rgb(134, 153, 170, 0.73))), url('../images/corona.jpg');
     background: linear-gradient(to top, rgba(69, 96, 124, 0.52), rgba(134, 153, 170, 0.73)), url('../images/corona.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 110%;
+    ;
     display: -webkit-box;
     display: flex;
     -webkit-box-pack: center;
@@ -40,9 +40,7 @@ body {
     /* opacity: 0; */
 }
 
-a,
-a:link,
-a:visited {
+a, a:link, a:visited {
     color: inherit;
 }
 
@@ -59,9 +57,7 @@ a:visited {
     font-weight: lighter;
 }
 
-#home:hover,
-#home:active,
-{
+#home:hover, #home:active {
     font-weight: bolder;
     color: whitesmoke;
     cursor: pointer;
@@ -83,4 +79,19 @@ a:visited {
     font-weight: bolder;
     color: white;
     margin-left: 1 rem;
+}
+
+@media screen and (max-width: 441px) {
+    html, body {
+        position: relative;
+        overflow-x: hidden;
+    }
+    .page-footer {
+        top: 110%
+    }
+
+    .go-back{
+        left: 30%;
+    }
+    
 }

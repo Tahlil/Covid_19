@@ -174,7 +174,7 @@
                     background: -webkit-gradient(linear, left bottom, left top, from(rgba(70, 95, 122, 0.52)), to(rgb(134, 153, 170, 0.73))), url('../images/corona.jpg');
                     background: linear-gradient(to top, rgba(69, 96, 124, 0.52), rgba(134, 153, 170, 0.73)), url('../images/corona.jpg');
                     background-repeat: no-repeat;
-                    background-size: cover;
+                    background-size: 100% 110%;;
                     display: -webkit-box;
                     display: flex;
                     -webkit-box-pack: center;
