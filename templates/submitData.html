@@ -31,10 +31,9 @@
 
     <div class="submitData text-white text-center p-3">
         <h3 style="border-bottom: solid 3px white;">Submit Data</h3>
-        <form class="center mt-3">
-            <div id="pt_box" class="pb-1" >
-
-                <p id="patient"> Patient's info</p>
+        <form class="center mt-4">
+            <div class="pt_box" class="mb-3" >
+                <p class="patient"> Patient's info</p>
                 <div class="row">
                     <label class="required">Age</label>
                     <input class="mx-auto" id="age" type="number" min="0" max="150" placeholder="Enter patient's age"
@@ -68,16 +67,26 @@
                 </div>
                 <div class="row center">
                     <label for="description">Short history (Optional)</label>
-                    <textarea name="description" class="mx-auto" cols="31" rows="7"></textarea>
+                    <textarea name="description" class="mx-auto" cols="30" rows="7"></textarea>
                 </div>
                 <div class="row center">
                     <label class="required">X-ray Image File: </label>
                     <p id="fileChoose" class="mx-auto"><a class="btn btn-outline-secondary">Choose File</a></p>
                 </div>
-                <img class="mx-auto d-block" id="blah" src="#" alt="x-ray image" width="120px" height="100px" />
+                <img class="mx-auto d-block" id="blah" src="#" alt="x-ray image" width="100px" height="80px" />
                 <div class="badge badge-warning">The image should only contain the X-Ray</div>
-               
                 
+            </div>
+            <div class="pt_box mt-3">
+                <p class="patient"> Submitter's info</p>
+                <div class="row center">
+                    <label for="email">Email / Phone number:</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="row center">
+                    <label for="relation" class="required">Relation with patient ( doctor/ relative/ friend... )</label>
+                    <input type="nam" name="relation" id="relation">
+                </div>
             </div>
             <div class="row submit">
                 <button class="ribbons mx-auto">Submit</button>

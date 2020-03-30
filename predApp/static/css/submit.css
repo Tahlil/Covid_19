@@ -65,7 +65,7 @@
 
   .page-footer {
       position: absolute;
-      top: 115%;
+      top: 139%;
       /* position: absolute;
                     bottom: 0;
                     width: 100%; */
@@ -655,15 +655,16 @@
     }
 }
 
-#pt_box{
+.pt_box{
     height:100%;
     width:100%;
     border:1px solid white;
+    padding: 6px;
 }
 
-#patient{
-    width:100px;
-    margin-top:-10px;
+.patient{
+    width:130px;
+    margin-top:-20px;
     margin-left:5px;
     background: url('../images/striped.png');
 }
