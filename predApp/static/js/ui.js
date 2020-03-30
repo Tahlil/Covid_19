@@ -140,14 +140,14 @@ App.init = function () {
       $("#drop").classList.remove("hidden");
     }, 500);
   }
-  function resetVals() {
+ function resetVals() {
     console.log("reseting...");
 
     document.getElementById(gender).checked = false;
     jQuery("input[type='number']").val('');
     gender = "notSelected";
     age = "notSelected";
-  }
+  } 
 
   // input change
   $("input[type=file]").addEventListener("change", handleFileSelect);
