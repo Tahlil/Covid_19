@@ -653,5 +653,17 @@
         top: 0;
         left: 30%;
     }
-    
+}
+
+#pt_box{
+    height:100%;
+    width:100%;
+    border:1px solid white;
+}
+
+#patient{
+    width:100px;
+    margin-top:-10px;
+    margin-left:5px;
+    background: url('../images/striped.png');
 }

@@ -31,49 +31,54 @@
 
     <div class="submitData text-white text-center p-3">
         <h3 style="border-bottom: solid 3px white;">Submit Data</h3>
-        <form class="center">
-            <div class="row">
-                <label class="required">Age</label>
-                <input class="mx-auto" id="age" type="number" min="0" max="150" placeholder="Enter patient's age"
-                    required="required" />
-            </div>
-            <div class="row select-gender">
-                <label class="required">Gender</label>
-                <div class="contain mx-auto">
-                    <input id="Male" type="radio" name="gender" value="Male" />
-                    <label for="Male">Male</label>
-                </div>
-                <div class="contain mx-auto">
-                    <input id="Female" type="radio" name="gender" value="Female" />
-                    <label for="Female">Female</label>
-                </div>
-                <div class="contain mx-auto">
-                    <input id="Other" type="radio" name="gender" value="Other" />
-                    <label for="Other">Other</label>
-                </div>
+        <form class="center mt-3">
+            <div id="pt_box" class="pb-1" >
 
-            </div>
-            <div class="row center">
-                <label class="required">Does the patient has Covid 19?</label>
-                <div class="toggle-button-cover mx-auto mt-1">
-                      <div class="button r" id="button-3">
-                        <input id="check" type="checkbox" class="checkbox">
-                        <div class="knobs"></div>
-                        <div class="layer"></div>
+                <p id="patient"> Patient's info</p>
+                <div class="row">
+                    <label class="required">Age</label>
+                    <input class="mx-auto" id="age" type="number" min="0" max="150" placeholder="Enter patient's age"
+                        required="required" />
+                </div>
+                <div class="row select-gender">
+                    <label class="required">Gender</label>
+                    <div class="contain mx-auto">
+                        <input id="Male" type="radio" name="gender" value="Male" />
+                        <label for="Male">Male</label>
+                    </div>
+                    <div class="contain mx-auto">
+                        <input id="Female" type="radio" name="gender" value="Female" />
+                        <label for="Female">Female</label>
+                    </div>
+                    <div class="contain mx-auto">
+                        <input id="Other" type="radio" name="gender" value="Other" />
+                        <label for="Other">Other</label>
+                    </div>
+    
+                </div>
+                <div class="row center">
+                    <label class="required">Does the patient has Covid 19?</label>
+                    <div class="toggle-button-cover mx-auto mt-1">
+                          <div class="button r" id="button-3">
+                            <input id="check" type="checkbox" class="checkbox">
+                            <div class="knobs"></div>
+                            <div class="layer"></div>
+                          </div>
                       </div>
-                   
-                  </div>
+                </div>
+                <div class="row center">
+                    <label for="description">Short history (Optional)</label>
+                    <textarea name="description" class="mx-auto" cols="31" rows="7"></textarea>
+                </div>
+                <div class="row center">
+                    <label class="required">X-ray Image File: </label>
+                    <p id="fileChoose" class="mx-auto"><a class="btn btn-outline-secondary">Choose File</a></p>
+                </div>
+                <img class="mx-auto d-block" id="blah" src="#" alt="x-ray image" width="120px" height="100px" />
+                <div class="badge badge-warning">The image should only contain the X-Ray</div>
+               
+                
             </div>
-            <div class="row center">
-                <label for="description">Short history (Optional)</label>
-                <textarea name="description" class="mx-auto" cols="31" rows="7"></textarea>
-            </div>
-            <div class="row center">
-                <label class="required">X-ray Image File: </label>
-                <p id="fileChoose" class="mx-auto"><a class="btn btn-outline-secondary">Choose File</a></p>
-            </div>
-            <img class="mx-auto d-block" id="blah" src="#" alt="x-ray image" width="120px" height="100px" />
-            <div class="badge badge-warning">The image should only contain the X-Ray</div>
             <div class="row submit">
                 <button class="ribbons mx-auto">Submit</button>
             </div>
