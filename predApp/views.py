@@ -34,7 +34,7 @@ from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
 
 from tensorflow.keras.preprocessing import image
-
+from PIL import Image
 
 def load_image(img_path, show=False):
     img = image.load_img(img_path, target_size=(224, 224, 3))
@@ -62,16 +62,22 @@ class FileUploadView(APIView):
         # temp = file_serializer.save()
         # print(temp)
         # print(os.getcwd())
-       
-        # gender = request.data['gender']
-        # age = request.data['age']
+        print(request.data['myFile'])
+        
+        gender = request.data['gender']
+        age = request.data['age']
+        file_name = str(settings.ID_TEST) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
         # print(gender)
         # print(age)
-        # img = load_image(request.data['myFile'])
+        img_path = request.data['myFile']
+        im1 = Image.open(img_path)
+        im1.save(settings.TESTED_LOC + file_name)
+        settings.ID_TEST += 1
+        # img = load_image(img_path)
         # gray_scaled_img = tf.image.rgb_to_grayscale(img)
         # data_to_3 = np.repeat(gray_scaled_img, 3, -1)
         # prob_threshhold = 0.6
-        data = { 'hasCorona': has_corona, 'positiveProbabilty': '____'}
+        data = { 'hasCorona': has_corona, 'positiveProbabilty': 'test'}
       
         # val = settings.MODEL.predict(data_to_3)
         # print("Probabilty of Corona: ")
