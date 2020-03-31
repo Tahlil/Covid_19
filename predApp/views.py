@@ -37,6 +37,16 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.preprocessing import image
 from PIL import Image
 import base64
+import csv
+import time;
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 def load_image(img_path, show=False):
     img = image.load_img(img_path, target_size=(224, 224, 3))
@@ -57,6 +67,9 @@ class FileUploadView(APIView):
         # file_serializer = FileSerializer(data=request.data)
         # print(request.data['myFile'])
         has_corona = False
+        print(get_client_ip(request))
+        ts = time.time()
+        ip = get_client_ip(request)
         # temp = file_serializer.save()
         # print(temp)
         # print(os.getcwd())
@@ -65,16 +78,19 @@ class FileUploadView(APIView):
         # age = request.data['age']
         # file_name = str(settings.ID_TEST) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
         file_name = str(settings.ID_TEST) + str(request.data['myFile'])
+        with open(settings.TESTED_LOC_CSV, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([ts, ip, file_name])
         # print(gender)
         # print(age)
-        # img_path = request.data['myFile']    
-        # settings.ID_TEST += 1
-        # img = imread(img_path, as_gray = True) 
-        # imsave("C:/Users/Du/Downloads/server/"+file_name, img)
+        img_path = request.data['myFile']    
+        settings.ID_TEST += 1
+        img = imread(img_path, as_gray = True) 
+        imsave(settings.TESTED_LOC+file_name, img)
         # im1 = load_image("C:/Users/Du/Downloads/server/"+file_name)
         # prob_threshhold = 0.6
         # data = { 'hasCorona': has_corona, 'positiveProbabilty': 'test'}
-        val = settings.MODEL.predict(im1)
+        # val = settings.MODEL.predict(im1)
         # print("Probabilty of Corona: ")
         # print(val[0][0])
         # print("Probabilty of not having Corona: ")
