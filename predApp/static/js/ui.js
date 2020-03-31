@@ -1,24 +1,11 @@
 //DOM
 var site = 'http://13.76.6.127';
-var gender = "notSelected";
-var age = "notSelected";
-
+console.log("Test f");
 const $ = document.querySelector.bind(document);
 const imageHolder = $('#blah');
 const modalBody = $('#modal-body');
-let formData;
-function isInvalidAge(age) {
-  return age<0 || age>150;  
-}
 
 
-jQuery('input[type="radio"]').on('change', function () {
-  gender = this.value;
-});
-
-jQuery('input[type="number"]').on('change', function () {
-  age = this.value;
-});
 
 hideImage = function () {
   imageHolder.style.visibility = 'hidden';
@@ -36,22 +23,13 @@ let App = {};
 App.init = function () {
 
   //Init
-
   function handleFileSelect(evt) {
-    console.log("Handle File...");
-    console.log(evt.target.files[0]);
-    
-    if (evt.target.files[0]) {
-      const files = evt.target.files; // FileList object
-    console.log(files);
-    
-    formData = new FormData()
+    const files = evt.target.files; // FileList object
+    const formData = new FormData()
     formData.append('myFile', evt.target.files[0]);
-    formData.append('age', age);
-    formData.append('gender', gender);
     //files template
     let template = `${Object.keys(files).
-      map(file => `<div class="file file--${file}">
+    map(file => `<div class="file file--${file}">
      <div class="name"><span>${files[file].name}</span></div>
      <div class="progress active"></div>
      <div class="done">
@@ -62,21 +40,52 @@ App.init = function () {
 						</a>
      </div>
     </div>`).
-      join("")}`;
+    join("")}`;
 
     $("#drop").classList.add("hidden");
     $("footer").classList.add("hasFiles");
-    document.querySelectorAll('.importar').forEach(el => {
-      el.classList.add("active");
-    });
-    // $(".importar").classList.add("active");
+    $(".importar").classList.add("active");
     setTimeout(() => {
       $(".list-files").innerHTML = template;
-      // document.getElementById("getNewFile").disabled = true;
+      document.getElementById("getNewFile").disabled = true;
       setTimeout(() => {
         showImage();
         imageHolder.src = URL.createObjectURL(evt.target.files[0]);
-
+        setTimeout(() => {
+          document.getElementById("overlay").style.display = "block";
+          $(".lds-ellipsis").style.display = "inline-block"
+          fetch(site + '/upload/', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        $(".lds-ellipsis").style.display = "none";
+        // document.getElementById('res').style.display = "inline-block";
+        // let addedAlert = data.hasCorona ? "alert-danger" : "alert-success", removedAlert = data.hasCorona ? "alert-success" : "alert-danger";
+        // document.getElementById('res').classList.remove(removedAlert);
+        // document.getElementById('res').classList.add(addedAlert);
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("getNewFile").disabled = false;
+        console.log(data);
+        console.log(data.hasCorona);
+        console.log(typeof data.hasCorona);
+        let addedClass = data.hasCorona ? "Positive" : "Negative", removedClass = data.hasCorona ? "Negative" : "Positive";
+        // let result = data.hasCorona ? "  Positive ( + ) " : "  Negative ( - )";
+        modalBody.innerHTML = data.positiveProbabilty + " %";
+        //document.getElementById('res').innerHTML = " Test " + result;
+        $(".modal-content").classList.add(data.hasCorona ? "redBorder" : "greenBorder");
+        $(".modal-content").classList.add(addedClass);
+        $(".modal-content").classList.remove(removedClass);
+        modalBody.classList.add(addedClass);
+        modalBody.classList.remove(removedClass);
+        document.getElementById('mBtn').click();
+        })
+        .catch(error => {
+          console.error(error)
+        });
+        }, 1000);
+       
       }, 3000);
     }, 1000);
 
@@ -86,30 +95,15 @@ App.init = function () {
         $(`.file--${file}`).querySelector(".progress").classList.remove("active");
         $(`.file--${file}`).querySelector(".done").classList.add("anim");
       }, load);
-    });  
-    } 
+    });
+
   }
-
-
-
-
-
 
   // trigger input
   $("#triggerFile").addEventListener("click", evt => {
     evt.preventDefault();
-    console.log("Gender: " + gender);
-    console.log("Age: " + age);
-    if (gender === "notSelected" || age === "notSelected" || isInvalidAge(age)) {
-      document.getElementById('err-btn').click();
-      setTimeout(() => {
-        $('#exit-btn').click();
-      }, 4000);
-    }
-    else {
-      $("input[type=file]").click();
-    }
-    // $("input[type=file]").click();
+
+    $("input[type=file]").click();
   });
 
   // drop events
@@ -127,89 +121,19 @@ App.init = function () {
   //   $("#drop").classList.remove("active");
   //   evt.preventDefault();
   // };
-  function goToFirstScreen() {
+
+  //upload more
+  $(".importar").addEventListener("click", () => {
     hideImage();
     // document.getElementById('res').style.display = 'none';
     $(".list-files").innerHTML = "";
     $("footer").classList.remove("hasFiles");
-    document.querySelectorAll('.importar').forEach(el => {
-      el.classList.remove("active");
-    });
-    // $(".importar").classList.remove("active");
+    $(".importar").classList.remove("active");
     setTimeout(() => {
       $("#drop").classList.remove("hidden");
     }, 500);
-  }
- function resetVals() {
-    console.log("reseting...");
-
-    document.getElementById(gender).checked = false;
-    jQuery("input[type='number']").val('');
-    gender = "notSelected";
-    age = "notSelected";
-  } 
+  });
 
   // input change
   $("input[type=file]").addEventListener("change", handleFileSelect);
-
-  //btn click listners
-  $("#difFile").addEventListener("click", () => {
-    console.log("Upload different file");
-    goToFirstScreen();
-    $("input[type=file]").click();
-  });
-
-  $("#difTest").addEventListener("click", () => {
-    resetVals();
-    goToFirstScreen();
-  });
-
-  //upload more
-  $("#goBack").addEventListener("click", () => {
-    goToFirstScreen();
-  });
-  $("#test").addEventListener("click", () => {
-    console.log("Overlay...");
-    document.getElementById("overlay").style.display = "block";
-    $(".lds-ellipsis").style.display = "inline-block"
-    console.log(formData);
-    fetch(site + '/upload/', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        
-        $(".lds-ellipsis").style.display = "none";
-        // document.getElementById('res').style.display = "inline-block";
-        // let addedAlert = data.hasCorona ? "alert-danger" : "alert-success", removedAlert = data.hasCorona ? "alert-success" : "alert-danger";
-        // document.getElementById('res').classList.remove(removedAlert);
-        // document.getElementById('res').classList.add(addedAlert);
-        console.log("Overlay gone...");
-        document.getElementById("overlay").style.display = "none";
-        // document.getElementById("getNewFile").disabled = false;
-        // console.log(data);
-        // console.log(data.hasCorona);
-        // console.log(typeof data.hasCorona);
-
-        let addedClass = data.hasCorona ? "Positive" : "Negative", removedClass = data.hasCorona ? "Negative" : "Positive";
-        // let result = data.hasCorona ? "  Positive ( + ) " : "  Negative ( - )";
-        modalBody.innerHTML = data.positiveProbabilty + " %";
-        //document.getElementById('res').innerHTML = " Test " + result;
-        $(".modal-content").classList.add(data.hasCorona ? "redBorder" : "greenBorder");
-        $(".modal-content").classList.add(addedClass);
-        $(".modal-content").classList.remove(removedClass);
-        modalBody.classList.add(addedClass);
-        modalBody.classList.remove(removedClass);
-        document.getElementById('mBtn').click();
-      })
-      .catch(error => {
-        console.error(error)
-      });
-  })
-  jQuery('#myModal').on('hide.bs.modal', function () {
-    resetVals();
-    goToFirstScreen();
-})
 }();
-

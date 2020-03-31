@@ -55,40 +55,41 @@ class FileUploadView(APIView):
     def post(self, request, *args, **kwargs):
         print('Post request...')
         # file_serializer = FileSerializer(data=request.data)
-        print(request.data['myFile'])
+        # print(request.data['myFile'])
         has_corona = False
         # temp = file_serializer.save()
         # print(temp)
         # print(os.getcwd())
         # print(request.data['myFile'])
-        gender = request.data['gender']
-        age = request.data['age']
-        file_name = str(settings.ID_TEST) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
+        # gender = request.data['gender']
+        # age = request.data['age']
+        # file_name = str(settings.ID_TEST) + "_" + str(gender) + "_" + str(age) + "_" + str(request.data['myFile'])
+        file_name = str(settings.ID_TEST) + str(request.data['myFile'])
         # print(gender)
         # print(age)
-        img_path = request.data['myFile']    
-        settings.ID_TEST += 1
-        img = imread(img_path, as_gray = True) 
-        imsave("C:/Users/Du/Downloads/server/"+file_name, img)
-        im1 = load_image("C:/Users/Du/Downloads/server/"+file_name)
-        prob_threshhold = 0.6
+        # img_path = request.data['myFile']    
+        # settings.ID_TEST += 1
+        # img = imread(img_path, as_gray = True) 
+        # imsave("C:/Users/Du/Downloads/server/"+file_name, img)
+        # im1 = load_image("C:/Users/Du/Downloads/server/"+file_name)
+        # prob_threshhold = 0.6
         # data = { 'hasCorona': has_corona, 'positiveProbabilty': 'test'}
         val = settings.MODEL.predict(im1)
         # print("Probabilty of Corona: ")
         # print(val[0][0])
         # print("Probabilty of not having Corona: ")
         # print(val[0][1])
-        val[0][0] = min(val[0][0], 0.95)
-        if prob_threshhold < val[0][0]:
-            file_name = settings.TESTED_LOC_POSITIVE + file_name
-            has_corona = True
-        else:
-            file_name = settings.TESTED_LOC_NEGATIVE + file_name
-        imsave(file_name, img)
-        positive_probabilty = "{:.2f}".format(round(val[0][0]*100.0, 2))
+        # val[0][0] = min(val[0][0], 0.95)
+        # if prob_threshhold < val[0][0]:
+        #     file_name = settings.TESTED_LOC_POSITIVE + file_name
+        #     has_corona = True
+        # else:
+        #     file_name = settings.TESTED_LOC_NEGATIVE + file_name
+        # imsave(file_name, img)
+        # positive_probabilty = "{:.2f}".format(round(val[0][0]*100.0, 2))
         data = {
             'hasCorona': has_corona,
-            'positiveProbabilty': positive_probabilty 
+            'positiveProbabilty': "testing" 
         }
         return JsonResponse(data)
 

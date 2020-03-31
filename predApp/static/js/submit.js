@@ -1,10 +1,10 @@
 var gender = "notSelected";
 var age = "notSelected";
-var hasCorona = true;
+var hasCorona = false;
 var emailOrPhone = "";
 var relation = "";
 var patientHistory = "";
-console.log(document.getElementById("check").checked);
+document.getElementById("check").checked = true;
 
 var site = 'http://13.76.6.127';
 // const $ = document.querySelector.bind(document);
@@ -19,7 +19,7 @@ function resetVals() {
     jQuery('#relation').val('');
     document.getElementById(gender).checked = false;
     document.getElementById("check").checked = true;
-    hasCorona = true;
+    hasCorona = false;
     jQuery("input[type='number']").val('');
     gender = "notSelected";
     age = "notSelected";
